@@ -21,12 +21,46 @@ class ToDoList {
 
         this.#addButtonElement.textContent = "Dodaj";
         mainWrapper.appendChild(footerElement);
-        
+        this.#addButtonElement.addEventListener("click", (event) => {
+            this.add();
+        })
         parent.appendChild(mainWrapper);
+
+
     }
 
-    add(item) {
-        this.items.push(item);
+    add() {
+        const itemWrapper = document.createElement("li");
+        itemWrapper.classList.add("todo-item");
+
+        const check = document.createElement('input');
+        check.type = "checkbox";
+
+        check.addEventListener("change", () => {
+            itemWrapper.classList.toggle("todo-item-done")
+        })
+        const text = document.createElement("div");
+        text.textContent = this.#newItemTextElement.value;
+        text.classList.add("todo-item-text");
+
+        const deleteButton = document.createElement("button");
+        deleteButton.textContent = "Usuń";
+
+        deleteButton.addEventListener("click", () => {
+            this.#listElement.removeChild(itemWrapper);
+        })
+        const editButton = document.createElement("button");
+        editButton.textContent = "Edycja";
+        editButton.addEventListener("click", () => {
+            const textEdit = document.createElement("textarea");
+            textEdit.value = text.textContent;
+            check.after(textEdit);
+        })
+        itemWrapper.appendChild(check);
+        itemWrapper.appendChild(text);
+        itemWrapper.appendChild(deleteButton);
+        itemWrapper.appendChild(editButton);
+        this.#listElement.appendChild(itemWrapper);        
     }
 }
 
