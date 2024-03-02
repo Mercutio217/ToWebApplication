@@ -1,0 +1,1 @@
+new ToDoList(document.getElementById("todo-list"));
